@@ -10,6 +10,9 @@ import { OpenACourse } from './Compoment/RequesrForm/open-a-course/open-a-course
 import { InstructorsData } from './Compoment/instructors-data/instructors-data';
 import { StaffsData } from './Compoment/staffs-data/staffs-data';
 import { Setting } from './Compoment/setting/setting';
+import { DropRequest } from './Dashboards/drop-request/drop-request';
+import { AddDropRequest } from './Dashboards/add-drop-request/add-drop-request';
+import { OpenRequest } from './Dashboards/open-request/open-request';
 
 export const routes: Routes = [
     { path: '', component: Login },
@@ -17,8 +20,8 @@ export const routes: Routes = [
     { path: 'navbar', 
         component: Navbar,
         children: [
-            { path: '', redirectTo: 'dashbord', pathMatch: 'full' },
-            { path: 'dashbord', component: Dashbord },
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+            { path: 'dashboard', component: Dashbord },
             { path: 'add-course', component: AddACourse },
             { path: 'drop-course', component: DropACourse },
             { path: 'add-drop-course', component: AddDropACourse },
@@ -26,6 +29,9 @@ export const routes: Routes = [
             { path: 'instructors-data', component: InstructorsData },
             { path: 'staffs-data', component: StaffsData },
             { path: 'settings', component: Setting },
+            { path: 'drop-request', component: DropRequest },
+            { path: 'add-drop-request', component: AddDropRequest },
+            { path: 'open-request', component: OpenRequest },
         ]
     },
 ];
