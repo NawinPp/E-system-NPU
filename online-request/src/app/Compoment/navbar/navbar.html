@@ -1,1 +1,109 @@
-<p>navbar works!</p>
+<nav class="bg-gradient-to-r from-red-700 via-red-500 to-red-300 text-white shadow">
+  <div class="container mx-auto flex items-center justify-between py-3 px-4">
+    <a href="/" class="text-xl font-bold flex items-center space-x-2">
+      <!-- Logo -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-8 w-8 text-white bg-red-600 rounded-full p-1"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l.2.614a1.72 1.72 0 002.573 1.01l.564-.326c.835-.482 1.823.316 1.54 1.21l-.2.614a1.72 1.72 0 001.01 2.573l.614.2c.921.3.921 1.603 0 1.902l-.614.2a1.72 1.72 0 00-1.01 2.573l.326.564c.482.835-.316 1.823-1.21 1.54l-.614-.2a1.72 1.72 0 00-2.573 1.01l-.2.614c-.3.921-1.603.921-1.902 0l-.2-.614a1.72 1.72 0 00-2.573-1.01l-.564.326c-.835.482-1.823-.316-1.54-1.21l.2-.614a1.72 1.72 0 00-1.01-2.573l-.614-.2c-.921-.3-.921-1.603 0-1.902l.614-.2a1.72 1.72 0 001.01-2.573l-.326-.564c-.482-.835.316-1.823 1.21-1.54l.614.2a1.72 1.72 0 002.573-1.01l.2-.614z"
+        />
+        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none" />
+      </svg>
+      <span>E-System NPU</span>
+    </a>
+
+    <ul class="flex space-x-6">
+      <li><a href="/navbar/dashbord" class="hover:text-red-300">Home</a></li>
+      <!-- <li><a href="/requests" class="hover:text-red-300">Requests</a></li> -->
+       <li class="relative group">
+        <button class="hover:text-red-300 focus:outline-none flex items-center space-x-1" (click)="toggleRequestDropdown()">
+            <span>Requests</span>
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+        </button>
+        <ul *ngIf="isRequestDropdownOpen" class="absolute left-0 mt-5 w-48 bg-white text-gray-800 rounded shadow-lg z-20">
+            <li>
+                <a href="/navbar/add-course" class="block px-4 py-2 hover:bg-red-100">Add Course</a>
+            </li>
+            <li>
+                <a href="/navbar/drop-course" class="block px-4 py-2 hover:bg-red-100">Drop Course</a>
+            </li>
+            <li>
+                <a href="/navbar/open-course" class="block px-4 py-2 hover:bg-red-100">Open Course</a>
+            </li>
+            <li>
+                <a href="/navbar/add-drop-course" class="block px-4 py-2 hover:bg-red-100">Add Drop Course</a>
+            </li>
+        </ul>
+    </li>
+      <li><a href="/navbar/staffs-data" class="hover:text-red-300">Staffs</a></li>
+      <li><a href="/navbar/instructors-data" class="hover:text-red-300">Instructors</a></li>
+    </ul>
+    
+    <!-- User Info Dropdown -->
+    <div class="relative flex items-center space-x-2">
+      <button (click)="toggleDropdown()" class="font-medium focus:outline-none hover:text-red-200">
+        Username
+      </button>
+
+      <!-- Dropdown menu using modern :enter/:leave animation -->
+      <div *ngIf="isOpen" @animate class="absolute right-0 top-12 mt-2 w-40 bg-white text-gray-800 rounded shadow-lg z-10">
+        <a href="/navbar/settings" class="block px-4 py-2 hover:bg-red-100">Edit Profile</a>
+        <a href="/" class="block px-4 py-2 hover:bg-red-100">Log Out</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container mx-auto px-4 py-6">
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</div>
+<!-- Chat Box Toggle Button -->
+<button
+    class="fixed bottom-6 right-6 z-50 bg-red-600 text-white rounded-full p-3 shadow-lg hover:bg-red-700 focus:outline-none"
+    *ngIf="!isChatOpen"
+    (click)="openChatBox()"
+    aria-label="Open Chat"
+>
+    💬
+</button>
+
+<!-- Chat Box -->
+<div class="fixed bottom-6 right-6 z-50" *ngIf="isChatOpen">
+    <div class="bg-white rounded-lg shadow-lg w-80">
+        <div class="flex items-center justify-between bg-red-600 text-white px-4 py-2 rounded-t-lg">
+            <span class="font-semibold">Chat Support</span>
+            <button class="focus:outline-none text-xl" (click)="closeChatBox()">×</button>
+        </div>
+        <div class="p-4 h-64 overflow-y-auto" id="chat-messages">
+            <!-- Example messages -->
+            <div class="mb-2">
+                <div class="text-xs text-gray-500">Support</div>
+                <div class="bg-red-100 text-gray-800 rounded px-3 py-2 inline-block">Hello! How can I help you?</div>
+            </div>
+            <!-- User messages will be appended here -->
+        </div>
+        <form class="flex border-t px-4 py-2" (submit)="sendMessage()">
+            <input
+                type="text"
+                class="flex-1 border rounded px-2 py-1 focus:outline-none"
+                placeholder="Type your message..."
+                [(ngModel)]="chatMessage"
+                name="chatMessage"
+                autocomplete="off"
+            />
+            <button type="submit" class="ml-2 bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700">Send</button>
+        </form>
+    </div>
+</div>
