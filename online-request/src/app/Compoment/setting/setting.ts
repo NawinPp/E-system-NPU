@@ -10,23 +10,44 @@ import { CommonModule } from '@angular/common';
 })
 export class Setting {
   showEditModal = false;
-  // ---------- Edit ----------
-  openEditModal(index: number) {
-    this.editIndex = index;
-    this.editInstructor = { ...this.instructorList[index] };
+
+  student = {
+    name: 'John Doe',
+    studentId: '12345678',
+    major: 'Computer Science',
+    faculty: 'Engineering',
+    year: 3,
+    gpa: 3.85,
+    adviser: 'Dr. Smith',
+    email: 'john.doe@email.com',
+    photo: 'https://via.placeholder.com/150' // default image
+  };
+
+  editData = { ...this.student };
+  selectedPhoto: any = null; // สำหรับ preview
+
+  openEditModal() {
+    this.editData = { ...this.student };
+    this.selectedPhoto = null;
     this.showEditModal = true;
   }
 
   closeEditModal() {
     this.showEditModal = false;
-    this.editInstructor = { name: '', position: '', department: '', email: '', phone: '' };
-    this.editIndex = null;
   }
 
-  updateInstructor() {
-    if (this.editIndex !== null) {
-      this.instructorList[this.editIndex] = { ...this.editInstructor };
-      this.closeEditModal();
+  onPhotoSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedPhoto = URL.createObjectURL(file);
     }
+  }
+
+  update() {
+    this.student = { ...this.editData };
+    if (this.selectedPhoto) {
+      this.student.photo = this.selectedPhoto;
+    }
+    this.closeEditModal();
   }
 }

@@ -9,54 +9,41 @@ import { CommonModule } from '@angular/common';
   styleUrl: './instructors-data.css',
 })
 export class InstructorsData {
+  instructorList: any[] = [{ name: 'naien', position: 'dsfasd', department: 'Engineer', email: 'adsf', phone: 'dfasd' }];
   showModal = false;
-  showEditModal = false;
+  isEdit = false;
 
-  instructorList: any[] = [
-    { name: 'John Doe', position: 'Manager', department: 'Engineer', email: 'john@example.com', phone: '123456789' },
-    { name: 'Jane Smith', position: 'Staff', department: 'Engineer', email: 'jane@example.com', phone: '987654321' },
-  ];
+  selectedInstructor: any = { name: '', position: '', department: '', email: '', phone: '' };
 
-  newInstructor = { name: '', position: '', department: '', email: '', phone: '' };
-  editInstructor = { name: '', position: '', department: '', email: '', phone: '' };
-  editIndex: number | null = null;
+  openAddModal() {
+    this.isEdit = false;
+    this.selectedInstructor = { name: '', position: '', department: '', email: '', phone: '' };
+    this.showModal = true;
+  }
 
-  // ---------- Add ----------
-  openModal() {
+  openEditModal(index: number) {
+    this.isEdit = true;
+    this.selectedInstructor = { ...this.instructorList[index] };
     this.showModal = true;
   }
 
   closeModal() {
     this.showModal = false;
-    this.newInstructor = { name: '', position: '', department: '', email: '', phone: '' };
   }
 
   addInstructor() {
-    this.instructorList.push({ ...this.newInstructor });
+    this.instructorList.push({ ...this.selectedInstructor });
     this.closeModal();
   }
 
-  // ---------- Edit ----------
-  openEditModal(index: number) {
-    this.editIndex = index;
-    this.editInstructor = { ...this.instructorList[index] };
-    this.showEditModal = true;
-  }
-
-  closeEditModal() {
-    this.showEditModal = false;
-    this.editInstructor = { name: '', position: '', department: '', email: '', phone: '' };
-    this.editIndex = null;
-  }
-
   updateInstructor() {
-    if (this.editIndex !== null) {
-      this.instructorList[this.editIndex] = { ...this.editInstructor };
-      this.closeEditModal();
+    const index = this.instructorList.findIndex((s) => s.email === this.selectedInstructor.email);
+    if (index !== -1) {
+      this.instructorList[index] = { ...this.selectedInstructor };
     }
+    this.closeModal();
   }
 
-  // ---------- Delete ----------
   deleteInstructor(index: number) {
     this.instructorList.splice(index, 1);
   }

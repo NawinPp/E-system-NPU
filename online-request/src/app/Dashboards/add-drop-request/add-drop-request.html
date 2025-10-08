@@ -1,48 +1,66 @@
-<div class="min-h-screen bg-white">
-    <div class="container mx-auto p-8 rounded-lg shadow-lg">
-        <h1 class="text-4xl font-bold mb-8 text-center text-white py-4 rounded"
-            style="background: linear-gradient(90deg, #f87171 0%, #b91c1c 100%);">
-            Requests
-        </h1>
-        <div class="flex flex-wrap justify-center gap-6 mb-10 text-center"
-            style="background: linear-gradient(90deg, #f87171 0%, #b91c1c 100%); border-radius: 0.5rem;">
-            <a href="/navbar/dashboard" class="text-xl font-semibold text-white px-4 py-2 rounded hover:underline hover:text-red-300 transition">Course Add Requests</a>
-            <a href="/navbar/drop-request" class="text-xl font-semibold text-white px-4 py-2 rounded hover:underline hover:text-red-300 transition">Course Drop Requests</a>
-            <a href="/navbar/open-request" class="text-xl font-semibold text-white px-4 py-2 rounded hover:underline hover:text-red-300 transition">Course Open Requests</a>
-            <a href="/navbar/add-drop-request" class="text-xl font-semibold text-white px-4 py-2 rounded hover:underline hover:text-red-300 transition">General Course Add/Drop Request</a>
-        </div>
-        <table class="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden">
-            <thead>
-                <tr class="bg-gray-100 text-gray-700">
-                    <th class="py-3 px-4 text-left font-medium">Request ID</th>
-                    <th class="py-3 px-4 text-left font-medium">Applicant Name</th>
-                    <th class="py-3 px-4 text-left font-medium">Submission Date</th>
-                    <th class="py-3 px-4 text-left font-medium">Request Status</th>
-                    <th class="py-3 px-4 text-left font-medium">Edit/Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="py-2 px-4 border-b">NPU.R11.1</td>
-                    <td class="py-2 px-4 border-b">John Doe</td>
-                    <td class="py-2 px-4 border-b">2024-06-10</td>
-                    <td class="py-2 px-4 border-b">Pending</td>
-                    <td class="py-2 px-4 border-b">
-                        <a href="#" class="text-blue-600 hover:underline mr-2 material-icons hover:text-blue-800">edit</a>
-                        <a href="#" class="text-red-600 hover:underline material-icons hover:text-red-800">delete</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="py-2 px-4 border-b">NPU.R11.1</td>
-                    <td class="py-2 px-4 border-b">Jane Smith</td>
-                    <td class="py-2 px-4 border-b">2024-06-09</td>
-                    <td class="py-2 px-4 border-b">Approved</td>
-                    <td class="py-2 px-4 border-b">
-                        <a href="#" class="text-blue-600 hover:underline mr-2 material-icons hover:text-blue-800">edit</a>
-                        <a href="#" class="text-red-600 hover:underline material-icons hover:text-red-800">delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header -->
+    <h1
+      class="text-3xl sm:text-4xl font-bold mb-6 text-center text-white py-3 rounded"
+      style="background: linear-gradient(90deg, #f87171 0%, #b91c1c 100%)"
+    >
+      Requests
+    </h1>
+
+    <!-- Navigation Links -->
+    <div class="flex flex-wrap justify-center gap-4 mb-8">
+      <a href="/navbar/dashboard" class="text-lg sm:text-xl font-semibold text-white px-4 py-2 rounded bg-red-500 hover:bg-red-600 transition hover:underline">
+        Course Add Requests
+      </a>
+      <a href="/navbar/drop-request" class="text-lg sm:text-xl font-semibold text-white px-4 py-2 rounded bg-red-500 hover:bg-red-600 transition hover:underline">
+        Course Drop Requests
+      </a>
+      <a href="/navbar/open-request" class="text-lg sm:text-xl font-semibold text-white px-4 py-2 rounded bg-red-500 hover:bg-red-600 transition hover:underline">
+        Course Open Requests
+      </a>
+      <a href="/navbar/add-drop-request" class="text-lg sm:text-xl font-semibold text-white px-4 py-2 rounded bg-red-500 hover:bg-red-600 transition hover:underline">
+        General Course Add/Drop
+      </a>
     </div>
+
+    <!-- Table Wrapper for scroll on mobile -->
+    <div class="overflow-x-auto rounded-lg shadow-lg bg-white">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Request ID</th>
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Applicant Name</th>
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Submission Date</th>
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Request Status</th>
+            <th class="px-4 py-3 text-left text-sm font-medium text-gray-700">Edit/Delete</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr *ngFor="let request of requests" class="hover:bg-gray-50">
+            <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{{ request.id }}</td>
+            <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{{ request.name }}</td>
+            <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-700">{{ request.date }}</td>
+            <td class="px-4 py-2 whitespace-nowrap text-sm">
+              <span
+                [ngClass]="{
+                  'text-green-600 font-semibold': request.status === 'Approved',
+                  'text-yellow-500 font-semibold': request.status === 'Pending',
+                  'text-red-600 font-semibold': request.status === 'Rejected'
+                }"
+              >
+                {{ request.status }}
+              </span>
+            </td>
+            <td class="px-4 py-2 whitespace-nowrap text-sm flex gap-2">
+              <a href="#" class="text-blue-600 hover:text-blue-800 transition material-icons hover:underline">edit</a>
+              <a href="#" class="text-red-600 hover:text-red-800 transition material-icons hover:underline">delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
 </div>

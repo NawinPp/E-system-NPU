@@ -2,68 +2,48 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-interface Staff {
-  name: string;
-  position: string;
-  email: string;
-  phone: string;
-}
-
 @Component({
   selector: 'app-staffs-data',
   imports: [FormsModule, CommonModule],
   templateUrl: './staffs-data.html',
-  styleUrl: './staffs-data.css'
+  styleUrl: './staffs-data.css',
 })
 export class StaffsData {
+  staffList: any[] = [{ name: 'naien', position: 'dsfasd', email: 'adsf', phone: 'dfasd' }];
   showModal = false;
-  showEditModal = false;
+  isEdit = false;
 
-  staffList: any[] = [
-    { name: 'John Doe', position: 'Manager', email: 'john@example.com', phone: '123456789' },
-    { name: 'Jane Smith', position: 'Staff', email: 'jane@example.com', phone: '987654321' }
-  ];
+  selectedStaff: any = { name: '', position: '', email: '', phone: '' };
 
-  newStaff = { name: '', position: '', email: '', phone: '' };
-  editStaff = { name: '', position: '', email: '', phone: '' };
-  editIndex: number | null = null;
+  openAddModal() {
+    this.isEdit = false;
+    this.selectedStaff = { name: '', position: '', email: '', phone: '' };
+    this.showModal = true;
+  }
 
-  // ---------- Add ----------
-  openModal() {
+  openEditModal(index: number) {
+    this.isEdit = true;
+    this.selectedStaff = { ...this.staffList[index] };
     this.showModal = true;
   }
 
   closeModal() {
     this.showModal = false;
-    this.newStaff = { name: '', position: '', email: '', phone: '' };
   }
 
   addStaff() {
-    this.staffList.push({ ...this.newStaff });
+    this.staffList.push({ ...this.selectedStaff });
     this.closeModal();
   }
 
-  // ---------- Edit ----------
-  openEditModal(index: number) {
-    this.editIndex = index;
-    this.editStaff = { ...this.staffList[index] };
-    this.showEditModal = true;
-  }
-
-  closeEditModal() {
-    this.showEditModal = false;
-    this.editStaff = { name: '', position: '', email: '', phone: '' };
-    this.editIndex = null;
-  }
-
   updateStaff() {
-    if (this.editIndex !== null) {
-      this.staffList[this.editIndex] = { ...this.editStaff };
-      this.closeEditModal();
+    const index = this.staffList.findIndex((s) => s.email === this.selectedStaff.email);
+    if (index !== -1) {
+      this.staffList[index] = { ...this.selectedStaff };
     }
+    this.closeModal();
   }
 
-  // ---------- Delete ----------
   deleteStaff(index: number) {
     this.staffList.splice(index, 1);
   }
