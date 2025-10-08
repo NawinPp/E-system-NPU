@@ -21,10 +21,10 @@
     </a>
 
     <ul class="flex space-x-6">
-      <li><a href="/navbar/dashboard" class="hover:text-red-300">Home</a></li>
+      <li><a href="/navbar/dashboard" class="hover:text-red-300 hover:underline">Home</a></li>
       <!-- <li><a href="/requests" class="hover:text-red-300">Requests</a></li> -->
        <li class="relative group">
-        <button class="hover:text-red-300 focus:outline-none flex items-center space-x-1" (click)="toggleRequestDropdown()">
+        <button class="hover:text-red-300 focus:outline-none flex items-center space-x-1 hover:underline" (click)="toggleRequestDropdown()">
             <span>Requests</span>
             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -45,13 +45,13 @@
             </li>
         </ul>
     </li>
-      <li><a href="/navbar/staffs-data" class="hover:text-red-300">Staffs</a></li>
-      <li><a href="/navbar/instructors-data" class="hover:text-red-300">Instructors</a></li>
+      <li><a href="/navbar/staffs-data" class="hover:text-red-300 hover:underline">Staffs</a></li>
+      <li><a href="/navbar/instructors-data" class="hover:text-red-300 hover:underline">Instructors</a></li>
     </ul>
     
     <!-- User Info Dropdown -->
     <div class="relative flex items-center space-x-2">
-      <button (click)="toggleDropdown()" class="font-medium focus:outline-none hover:text-red-200">
+      <button (click)="toggleDropdown()" class="font-medium focus:outline-none hover:text-red-200 hover:underline">
         Username
       </button>
 

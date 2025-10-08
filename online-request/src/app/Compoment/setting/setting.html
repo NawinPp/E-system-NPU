@@ -1,1 +1,83 @@
-<p>setting works!</p>
+<div class="max-w-md mx-auto mt-10 bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="flex items-center p-6">
+        <img class="h-24 w-24 rounded-full object-cover border-2 border-gray-300" src="https://via.placeholder.com/150" alt="User Picture">
+        <div class="ml-6 flex-1">
+            <h2 class="text-xl font-semibold text-gray-800">John Doe</h2>
+            <p class="text-gray-600">Student ID: 12345678</p>
+            <p class="text-gray-600">Major: Computer Science</p>
+            <p class="text-gray-600">Faculty: Engineering</p>
+            <p class="text-gray-600">Year: 3</p>
+            <p class="text-gray-600">GPA: 3.85</p>
+            <p class="text-gray-600">Adviser: Dr. Smith</p>
+            <p class="text-gray-600">john.doe@email.com</p>
+            <button class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Edit</button>
+        </div>
+    </div>
+
+    <!-- Edit Model -->
+     <div *ngIf="showEditModal" class="fixed inset-0 flex items-center justify-center z-[1000]">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+      <h2 class="text-xl font-bold mb-4 text-center">Edit Instructor</h2>
+      <form (ngSubmit)="update()">
+        <div class="mb-3">
+          <label class="block text-sm font-medium mb-1">Name</label>
+          <input
+            type="text"
+            [(ngModel)]="editData.name"
+            name="editName"
+            required
+            class="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="block text-sm font-medium mb-1">Major</label>
+          <input
+            type="text"
+            [(ngModel)]="editData.major"
+            name="editMajor"
+            required
+            class="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="block text-sm font-medium mb-1">Faculty</label>
+          <input
+            type="text"
+            [(ngModel)]="editData.faculty"
+            name="editFaculty"
+            required
+            class="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="block text-sm font-medium mb-1">Year</label>
+          <input
+            type="email"
+            [(ngModel)]="editData.year"
+            name="editYear"
+            required
+            class="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-1">GPA</label>
+          <input
+            type="text"
+            [(ngModel)]="editData.gpa"
+            name="editGPA"
+            required
+            class="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div class="flex justify-end space-x-2">
+          <button type="button" (click)="closeEditModal()" class="px-4 py-2 bg-gray-300 rounded">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded">
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

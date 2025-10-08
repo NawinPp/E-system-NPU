@@ -1,1 +1,167 @@
-<p>staffs-data works!</p>
+<div class="p-6 bg-white rounded shadow">
+  <div class="mb-6">
+    <h1
+      class="text-2xl font-bold m-0 text-center py-4 bg-gradient-to-r from-red-500 to-red-700 text-white rounded"
+    >
+      Staff
+    </h1>
+    <div class="flex justify-end mt-4">
+      <button
+        (click)="openModal()"
+        class="flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+      >
+        <span class="material-icons mr-2">add</span>
+        Add Name
+      </button>
+    </div>
+  </div>
+
+  <!-- Add Modal -->
+  <div *ngIf="showModal" class="fixed inset-0 flex items-center justify-center z-[1000]">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+      <h2 class="text-xl font-bold mb-4 text-center">Add Staff</h2>
+      <form (ngSubmit)="addStaff()">
+        <div class="mb-3">
+          <label class="block text-sm font-medium mb-1">Name</label>
+          <input
+            type="text"
+            [(ngModel)]="newStaff.name"
+            name="name"
+            required
+            class="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="block text-sm font-medium mb-1">Position</label>
+          <input
+            type="text"
+            [(ngModel)]="newStaff.position"
+            name="position"
+            required
+            class="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="block text-sm font-medium mb-1">Email</label>
+          <input
+            type="email"
+            [(ngModel)]="newStaff.email"
+            name="email"
+            required
+            class="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-1">Phone</label>
+          <input
+            type="text"
+            [(ngModel)]="newStaff.phone"
+            name="phone"
+            required
+            class="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div class="flex justify-end space-x-2">
+          <button type="button" (click)="closeModal()" class="px-4 py-2 bg-gray-300 rounded">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">
+            Add
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div *ngIf="showEditModal" class="fixed inset-0 flex items-center justify-center z-[1000]">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+      <h2 class="text-xl font-bold mb-4 text-center">Edit Staff</h2>
+      <form (ngSubmit)="updateStaff()">
+        <div class="mb-3">
+          <label class="block text-sm font-medium mb-1">Name</label>
+          <input
+            type="text"
+            [(ngModel)]="editStaff.name"
+            name="editName"
+            required
+            class="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="block text-sm font-medium mb-1">Position</label>
+          <input
+            type="text"
+            [(ngModel)]="editStaff.position"
+            name="editPosition"
+            required
+            class="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="block text-sm font-medium mb-1">Email</label>
+          <input
+            type="email"
+            [(ngModel)]="editStaff.email"
+            name="editEmail"
+            required
+            class="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-1">Phone</label>
+          <input
+            type="text"
+            [(ngModel)]="editStaff.phone"
+            name="editPhone"
+            required
+            class="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div class="flex justify-end space-x-2">
+          <button type="button" (click)="closeEditModal()" class="px-4 py-2 bg-gray-300 rounded">
+            Cancel
+          </button>
+          <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded">
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <table class="w-full border-collapse mt-6">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="px-4 py-3 text-left font-medium">Name</th>
+        <th class="px-4 py-3 text-left font-medium">Position</th>
+        <th class="px-4 py-3 text-left font-medium">Email</th>
+        <th class="px-4 py-3 text-left font-medium">Phone</th>
+        <th class="px-4 py-3 text-center font-medium">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let staff of staffList; let i = index" class="border-b">
+        <td class="px-4 py-3">{{ staff.name }}</td>
+        <td class="px-4 py-3">{{ staff.position }}</td>
+        <td class="px-4 py-3">{{ staff.email }}</td>
+        <td class="px-4 py-3">{{ staff.phone }}</td>
+        <td class="px-4 py-3 text-center">
+          <button
+            (click)="openEditModal(i)"
+            class="inline-flex items-center text-blue-600 hover:text-blue-800 mr-2 hover:underline"
+          >
+            <span class="material-icons">edit</span>
+          </button>
+          <button
+            (click)="deleteStaff(i)"
+            class="inline-flex items-center text-red-600 hover:text-red-800 hover:underline"
+          >
+            <span class="material-icons">delete</span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
