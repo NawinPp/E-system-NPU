@@ -1,1 +1,281 @@
-<p>add-a-course works!</p>
+<div class="container mx-auto p-6 max-w-4xl bg-white shadow-md rounded-lg">
+  <form (ngSubmit)="onSubmit()" class="space-y-6">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-4">
+      <img src="https://www.npu.ac.th/image2016/logoNPU.png" alt="logo-npu" class="w-16 h-18" />
+      <div class="text-center">
+        <h2 class="text-xl font-bold">มหาวิทยาลัยนครพนม</h2>
+        <h4 class="text-md text-gray-600">คำร้องขอเพิ่มรายวิชา</h4>
+      </div>
+      <small class="text-gray-400">NPU.R05</small>
+    </div>
+
+    <!-- Date -->
+    <div class="flex justify-end mt-2">
+      <span class="text-gray-500 mr-15">{{ currentDate }}</span>
+    </div>
+
+    <!-- Row 1: Name and Student ID -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">ข้าพเจ้า</label>
+        <input
+          id="fullname"
+          type="text"
+          name="fullname"
+          [(ngModel)]="formData.students[0].name"
+          required
+          class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+      <div>
+        <label for="st_id" class="block text-sm font-medium text-gray-700">รหัสนักศึกษา</label>
+        <input
+          id="st_id"
+          type="text"
+          name="student-id"
+          [(ngModel)]="formData.students[0].st_id"
+          required
+          class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+    </div>
+
+    <!-- Row 2: Phone and Education -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label for="phone" class="block text-sm font-medium text-gray-700"
+          >หมายเลขโทรศัพท์มือถือ</label
+        >
+        <input
+          id="phone"
+          type="text"
+          name="phone"
+          [(ngModel)]="formData.phone"
+          class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">เป็นนักศึกษา</label>
+        <div class="flex items-center space-x-4 mt-1">
+          <label class="flex items-center space-x-1">
+            <input
+              id="normal"
+              type="radio"
+              name="education"
+              [(ngModel)]="formData.education"
+              value="ระบบปกติ"
+              class="form-radio"
+            />
+            <span>ระบบปกติ</span>
+          </label>
+          <label class="flex items-center space-x-1">
+            <input
+              id="special"
+              type="radio"
+              name="education"
+              [(ngModel)]="formData.education"
+              value="ระบบพิเศษ"
+              class="form-radio"
+            />
+            <span>ระบบพิเศษ</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Year, Group, Branch, Faculty -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div>
+        <label for="year" class="block text-sm font-medium text-gray-700">ชั้นปีที่</label>
+        <select
+          id="year"
+          name="year"
+          [(ngModel)]="formData.students[0].year"
+          class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        >
+          <option *ngFor="let y of [1, 2, 3, 4, 5, 6, 7, 8]" [value]="y">{{ y }}</option>
+        </select>
+      </div>
+      <div>
+        <label for="group" class="block text-sm font-medium text-gray-700">กลุ่ม</label>
+        <input
+          id="group"
+          type="text"
+          name="group"
+          [(ngModel)]="formData.group"
+          class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+      <div>
+        <label for="branch" class="block text-sm font-medium text-gray-700">สาขาวิชา</label>
+        <select
+          id="branch"
+          name="branch"
+          [(ngModel)]="formData.students[0].branch"
+          class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        >
+          <option
+            *ngFor="
+              let b of [
+                'สาขาวิชา',
+                'วิศวกรรมไฟฟ้า',
+                'วิศวกรรมโยธา',
+                'วิศวกรรมคอมพิวเตอร์',
+                'วิศวกรรมโลจิสติกส์',
+                'วิศวกรรมเครื่องกล',
+                'วิศวกรรมอุตสาหการและการจัดการ'
+              ]
+            "
+            [value]="b"
+          >
+            {{ b }}
+          </option>
+        </select>
+      </div>
+      <div>
+        <label for="faculty" class="block text-sm font-medium text-gray-700">คณะ / วิทยาลัย</label>
+        <select
+          id="faculty"
+          name="faculty"
+          [(ngModel)]="formData.students[0].faculty"
+          class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        >
+          <option value="วิศวกรรมศาสตร์">วิศวกรรมศาสตร์</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Program Level -->
+    <div class="space-y-2">
+      <label class="block text-sm font-medium text-gray-700">ระดับ</label>
+      <div class="flex flex-wrap items-center gap-4 mt-1">
+        <label class="flex items-center space-x-1">
+          <input
+            type="radio"
+            name="program_level"
+            [(ngModel)]="formData.program_level"
+            value="ปวช"
+            class="form-radio"
+          />
+          <span>ประกาศนียบัตรวิชาชีพ (ปวช.)</span>
+        </label>
+        <label class="flex items-center space-x-1">
+          <input
+            type="radio"
+            name="program_level"
+            [(ngModel)]="formData.program_level"
+            value="ปวส"
+            class="form-radio"
+          />
+          <span>ประกาศนียบัตรวิชาชีพชั้นสูง (ปวส.)</span>
+        </label>
+        <label class="flex items-center space-x-1">
+          <input
+            type="radio"
+            name="program_level"
+            [(ngModel)]="formData.program_level"
+            value="ปริญญาตรี"
+            class="form-radio"
+          />
+          <span>ปริญญาตรี</span>
+        </label>
+        <label class="flex items-center space-x-1">
+          <input
+            type="radio"
+            name="program_level"
+            [(ngModel)]="formData.program_level"
+            value="อื่น"
+            class="form-radio"
+          />
+          <span>อื่นๆ ระบุ</span>
+        </label>
+      </div>
+      <input
+        *ngIf="formData.program_level === 'อื่น'"
+        id="comment"
+        type="text"
+        name="comment"
+        [(ngModel)]="formData.other"
+        placeholder="กรุณาระบุ"
+        class="mt-1 block w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+      />
+    </div>
+
+    <!-- Course Table -->
+    <div class="overflow-x-auto mt-4">
+      <table class="min-w-full border border-gray-200 divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">รหัสวิชา</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">ชื่อวิชา</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">หน่วยกิต</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr *ngFor="let row of rows; let j = index">
+            <td class="px-2 py-1">
+              <input
+                id="course_code-{{ j }}"
+                name="course_code-{{ j }}"
+                type="text"
+                [(ngModel)]="row.course_code"
+                (ngModelChange)="onCourseCodeChange(j)"
+                placeholder="รหัสวิชา"
+                class="w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </td>
+            <td class="px-2 py-1">
+              <input
+                id="course_name-{{ j }}"
+                name="course_name-{{ j }}"
+                type="text"
+                [(ngModel)]="row.course_name"
+                readonly
+                placeholder="ชื่อวิชา"
+                class="w-full border border-gray-300 rounded-md p-2 bg-gray-100"
+              />
+            </td>
+            <td class="px-2 py-1">
+              <input
+                name="credit-{{ j }}"
+                id="credit-{{ j }}"
+                type="number"
+                [(ngModel)]="row.credit"
+                readonly
+                placeholder="หน่วยกิต"
+                class="w-full border border-gray-300 rounded-md p-2 bg-gray-100"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button
+        type="button"
+        (click)="addRow()"
+        class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer"
+      >
+        เพิ่มแถว
+      </button>
+    </div>
+
+    <!-- Total Credit -->
+    <div class="flex items-center space-x-2 mt-4">
+      <label class="text-sm font-medium text-gray-700">รวม จำนวนหน่วยกิต</label>
+      <input
+        type="text"
+        [(ngModel)]="formData.total_credit"
+        readonly
+        class="border border-gray-300 rounded-md p-2 w-20 bg-gray-100"
+      />
+      <span>หน่วยกิต</span>
+    </div>
+
+    <!-- Submit -->
+    <div class="mt-4 flex justify-center">
+      <button type="submit" class="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600 cursor-pointer">
+        ส่งคำร้องขอ
+      </button>
+    </div>
+  </form>
+</div>

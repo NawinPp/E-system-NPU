@@ -1,1 +1,173 @@
-<p>add-drop-a-course works!</p>
+<div class="container mx-auto p-6 max-w-5xl bg-white shadow-lg rounded-xl">
+  <form (ngSubmit)="onSubmit()" class="space-y-6">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-4">
+      <img src="https://www.npu.ac.th/image2016/logoNPU.png" alt="logo-npu" class="w-16 h-18" />
+      <div class="text-center flex-1">
+        <h2 class="text-2xl font-bold">มหาวิทยาลัยนครพนม</h2>
+        <h4 class="text-gray-600 text-lg">คำร้องขอเพิ่ม / ถอนรายวิชาทั่วไป</h4>
+        <div class="mt-2 flex items-center justify-center gap-2">
+          <span>ภาคการศึกษา</span>
+          <input
+            type="text"
+            name="term"
+            [(ngModel)]="data.term"
+            required
+            class="border border-gray-300 rounded-md p-1 w-20 focus:ring-blue-500 focus:border-blue-500"
+          />
+          <span>ปีการศึกษา</span>
+          <input
+            type="text"
+            name="academic_year"
+            [(ngModel)]="data.academic_year"
+            required
+            class="border border-gray-300 rounded-md p-1 w-24 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+      </div>
+      <small class="text-gray-400">NPU.R11.1</small>
+    </div>
+
+    <div class="text-right text-gray-500 mr-15">{{ currentDate }}</div>
+
+    <!-- Subject -->
+    <div>
+      <h5 class="font-semibold">เรื่อง ขอเพิ่ม / ถอนรายวิชาเรียน</h5>
+    </div>
+
+    <!-- Dean -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700">เรียน คณบดี</label>
+      <input
+        type="text"
+        name="dean"
+        [(ngModel)]="data.dean"
+        required
+        class="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+      />
+    </div>
+
+    <!-- Student Info -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">ข้าพเจ้า</label>
+        <input
+          type="text"
+          name="st-name"
+          [(ngModel)]="data.students[0].name"
+          required
+          class="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">รหัสนักศึกษา</label>
+        <input
+          type="text"
+          name="student-id"
+          [(ngModel)]="data.students[0].st_id"
+          class="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+    </div>
+
+    <!-- Year / Branch / Faculty -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">ชั้นปีที่</label>
+        <select
+          name="year"
+          [(ngModel)]="data.students[0].year"
+          class="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        >
+          <option *ngFor="let y of [1,2,3,4,5,6,7,8]" [value]="y">{{ y }}</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">สาขาวิชา</label>
+        <select
+          name="department"
+          [(ngModel)]="data.students[0].branch"
+          class="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        >
+          <option *ngFor="let b of ['สาขาวิชา','วิศวกรรมไฟฟ้า','วิศวกรรมโยธา','วิศวกรรมคอมพิวเตอร์','วิศวกรรมโลจิสติกส์','วิศวกรรมเครื่องกล','วิศวกรรมอุตสาหการและการจัดการ']" [value]="b">{{ b }}</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">คณะ / วิทยาลัย</label>
+        <select
+          name="faculty"
+          [(ngModel)]="data.students[0].faculty"
+          class="mt-1 w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        >
+          <option>วิศวกรรมศาสตร์</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">ระดับ</label>
+        <div class="flex flex-col space-y-1 mt-1">
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="program_level" value="ปริญญาตรี 4 ปี" [(ngModel)]="data.program_level" class="form-radio"/>
+            <span>ปริญญาตรี 4 ปี</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="program_level" value="ปริญญาตรี 5 ปี" [(ngModel)]="data.program_level" class="form-radio"/>
+            <span>ปริญญาตรี 5 ปี</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="program_level" value="ปริญญาตรี 2 ปี" [(ngModel)]="data.program_level" class="form-radio"/>
+            <span>ปริญญาตรี 2 ปี (ต่อเนื่อง)/เทียบโอน</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wish: Add / Drop -->
+    <div class="flex flex-wrap items-center gap-4 mt-2">
+      <span class="font-medium">มีความประสงค์ขอ</span>
+      <label class="flex items-center space-x-1">
+        <input type="radio" name="have_a_wish" value="เพิ่ม" [(ngModel)]="data.have_a_wish" class="form-radio"/>
+        <span>เพิ่ม</span>
+      </label>
+      <label class="flex items-center space-x-1">
+        <input type="radio" name="have_a_wish" value="ถอน" [(ngModel)]="data.have_a_wish" class="form-radio"/>
+        <span>ถอน</span>
+      </label>
+    </div>
+
+    <!-- Course Table -->
+    <div class="overflow-x-auto mt-4">
+      <table class="min-w-full border border-gray-200 divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">รหัสวิชา</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">ชื่อวิชา</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">กลุ่มเรียน</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">หน่วยกิต</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr *ngFor="let row of rows; let j = index">
+            <td class="px-2 py-1">
+              <input type="text" [(ngModel)]="row.course_code" name="course_code-{{j}}" placeholder="รหัสวิชา" class="w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"/>
+            </td>
+            <td class="px-2 py-1">
+              <input type="text" [(ngModel)]="row.course_name" name="course_name-{{j}}" placeholder="ชื่อวิชา" readonly class="w-full border border-gray-300 rounded-md p-2 bg-gray-100"/>
+            </td>
+            <td class="px-2 py-1">
+              <input type="text" [(ngModel)]="row.group" name="group-{{j}}" placeholder="กลุ่มเรียน" readonly class="w-full border border-gray-300 rounded-md p-2 bg-gray-100"/>
+            </td>
+            <td class="px-2 py-1">
+              <input type="number" [(ngModel)]="row.credit" name="credit-{{j}}" placeholder="หน่วยกิต" readonly class="w-full border border-gray-300 rounded-md p-2 bg-gray-100"/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" (click)="addRow()" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">เพิ่มแถว</button>
+    </div>
+
+    <!-- Submit -->
+    <div class="mt-6 flex justify-center">
+      <button type="submit" class="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600">ส่งคำร้องขอ</button>
+    </div>
+  </form>
+</div>

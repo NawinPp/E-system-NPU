@@ -1,1 +1,135 @@
-<p>open-a-course works!</p>
+<div class="container mx-auto p-6 max-w-4xl bg-white shadow-lg rounded-lg">
+  <form class="space-y-6" (ngSubmit)="onSubmit()">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-4">
+      <img src="https://www.npu.ac.th/image2016/logoNPU.png" alt="logo-npu" class="w-16 h-18" />
+      <div class="text-center">
+        <h2 class="text-xl font-bold">มหาวิทยาลัยนครพนม</h2>
+        <h4 class="text-md text-gray-600">คำร้องขอเปิดรายวิชา</h4>
+      </div>
+      <small class="text-gray-400">NPU.R31</small>
+    </div>
+
+    <div class="text-right text-gray-500 mr-15">{{ currentDate }}</div>
+
+    <!-- เรื่อง -->
+    <div class="space-y-1">
+      <label class="block font-medium">เรื่อง ขอเปิดรายวิชา</label>
+      <input
+        type="text"
+        class="w-full border border-gray-300 rounded-md p-2"
+        [(ngModel)]="data.course[0].course_name"
+        name="subject"
+        (ngModelChange)="onCourseNameChange($event)"
+        required
+      />
+    </div>
+
+    <!-- ข้อมูลนักศึกษา -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block font-medium">ข้าพเจ้า</label>
+        <input
+          type="text"
+          class="w-full border border-gray-300 rounded-md p-2"
+          [(ngModel)]="data.student[0].name"
+          name="name"
+          required
+        />
+      </div>
+      <div>
+        <label class="block font-medium">รหัสนักศึกษา</label>
+        <input
+          type="text"
+          class="w-full border border-gray-300 rounded-md p-2"
+          [(ngModel)]="data.student[0].st_id"
+          name="student-id"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block font-medium">หมายเลขโทรศัพท์มือถือ</label>
+        <input
+          type="text"
+          class="w-full border border-gray-300 rounded-md p-2"
+          [(ngModel)]="data.phone"
+          name="phone"
+          required
+        />
+      </div>
+      <div>
+        <label class="block font-medium">ระบบการศึกษา</label>
+        <div class="flex gap-4 mt-1">
+          <label class="flex items-center gap-1">
+            <input type="radio" name="education" [value]="'ระบบปกติ'" [(ngModel)]="data.education" required />
+            <span>ระบบปกติ</span>
+          </label>
+          <label class="flex items-center gap-1">
+            <input type="radio" name="education" [value]="'ระบบพิเศษ'" [(ngModel)]="data.education" required />
+            <span>ระบบพิเศษ</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ชั้นปี / สาขา / คณะ -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label class="block font-medium">ชั้นปี</label>
+        <select [(ngModel)]="data.student[0].year" name="year" class="w-full border border-gray-300 rounded-md p-2">
+          <option *ngFor="let y of [1,2,3,4,5,6,7,8]" [value]="y">{{ y }}</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-medium">สาขาวิชา</label>
+        <select [(ngModel)]="data.student[0].branch" name="branch" class="w-full border border-gray-300 rounded-md p-2">
+          <option *ngFor="let b of ['สาขาวิชา','วิศวกรรมไฟฟ้า','วิศวกรรมโยธา','วิศวกรรมคอมพิวเตอร์','วิศวกรรมโลจิสติกส์','วิศวกรรมเครื่องกล','วิศวกรรมอุตสาหการและการจัดการ']" [value]="b">{{ b }}</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-medium">คณะ / วิทยาลัย</label>
+        <select [(ngModel)]="data.student[0].faculty" name="faculty" class="w-full border border-gray-300 rounded-md p-2">
+          <option>วิศวกรรมศาสตร์</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ระดับ -->
+    <div class="flex flex-wrap gap-4 mt-4">
+      <label class="flex items-center gap-1">
+        <input type="radio" name="program_level" [value]="'ปวช'" [(ngModel)]="data.program_level" required />
+        <span>ปวช.</span>
+      </label>
+      <label class="flex items-center gap-1">
+        <input type="radio" name="program_level" [value]="'ปวส'" [(ngModel)]="data.program_level" required />
+        <span>ปวส.</span>
+      </label>
+      <label class="flex items-center gap-1">
+        <input type="radio" name="program_level" [value]="'ปริญญาตรี'" [(ngModel)]="data.program_level" required />
+        <span>ปริญญาตรี</span>
+      </label>
+      <label class="flex items-center gap-1">
+        <input type="radio" name="program_level" [value]="'อื่น'" [(ngModel)]="data.program_level" required />
+        <span>อื่นๆ ระบุ</span>
+      </label>
+      <input *ngIf="data.program_level === 'อื่น'" type="text" placeholder="กรุณาระบุ" [(ngModel)]="data.comment" name="comment" class="border border-gray-300 rounded-md p-2" />
+    </div>
+
+    <!-- Course -->
+    <div class="mt-4 space-y-2">
+      <label class="block font-medium">มีความประสงค์ขอให้เปิดรายวิชา</label>
+      <div class="flex gap-2">
+        <input type="text" class="border border-gray-300 rounded-md p-2 flex-1" [(ngModel)]="data.course[0].course_code" name="course_code" (ngModelChange)="onCourseCodeChange($event)" [readonly]="isReadonly"/>
+        <input type="text" class="border border-gray-300 rounded-md p-2 flex-1" [(ngModel)]="data.course[0].course_name" name="course_name" readonly />
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="mt-6 flex justify-center">
+      <button type="submit" class="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600">ส่งคำร้อง</button>
+    </div>
+  </form>
+</div>
