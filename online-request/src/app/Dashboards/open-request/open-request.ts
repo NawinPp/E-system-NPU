@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 interface Request {
   id: string;
@@ -21,4 +22,26 @@ export class OpenRequest {
     { id: 'NPU.R11', name: 'Jane Smith', date: '2024-06-10', status: 'Approved' },
     { id: 'NPU.R12', name: 'Bob Brown', date: '2024-06-10', status: 'Rejected' },
   ];
+
+  deleteRequest(index: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to delete this request?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.requests.splice(index, 1);
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'The request has been deleted.',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
+  }
 }

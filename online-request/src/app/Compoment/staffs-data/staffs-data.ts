@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-staffs-data',
@@ -45,6 +46,21 @@ export class StaffsData {
   }
 
   deleteStaff(index: number) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to delete this staff member?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.confirmDelete(index);
+        Swal.fire('Deleted!', 'The staff member has been deleted.', 'success');
+      }
+    });
+  }
+  confirmDelete(index: number) {
     this.staffList.splice(index, 1);
   }
 }

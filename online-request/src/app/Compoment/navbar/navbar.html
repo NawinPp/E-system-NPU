@@ -57,7 +57,7 @@
       <!-- Dropdown menu using modern :enter/:leave animation -->
       <div *ngIf="isOpen" @animate class="absolute right-0 top-12 mt-2 w-40 bg-white text-gray-800 rounded shadow-lg z-10">
         <a href="/navbar/settings" class="block px-4 py-2 hover:bg-red-100">Edit Profile</a>
-        <a href="/" class="block px-4 py-2 hover:bg-red-100">Log Out</a>
+        <a (click)="logout()" class="block px-4 py-2 hover:bg-red-100">Log Out</a>
       </div>
     </div>
   </div>

@@ -1,6 +1,5 @@
 <div class="min-h-screen bg-gray-50 py-8">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    
     <!-- Header -->
     <h1
       class="text-3xl sm:text-4xl font-bold mb-6 text-center text-white py-3 rounded"
@@ -11,16 +10,28 @@
 
     <!-- Navigation Links -->
     <div class="flex flex-wrap justify-center gap-4 mb-8">
-      <a href="/navbar/dashboard" class="text-lg sm:text-xl font-semibold text-white px-4 py-2 rounded bg-red-500 hover:bg-red-600 transition hover:underline">
+      <a
+        href="/navbar/dashboard"
+        class="text-lg sm:text-xl font-semibold text-white px-4 py-2 rounded bg-red-500 hover:bg-red-600 transition hover:underline"
+      >
         Course Add Requests
       </a>
-      <a href="/navbar/drop-request" class="text-lg sm:text-xl font-semibold text-white px-4 py-2 rounded bg-red-500 hover:bg-red-600 transition hover:underline">
+      <a
+        href="/navbar/drop-request"
+        class="text-lg sm:text-xl font-semibold text-white px-4 py-2 rounded bg-red-500 hover:bg-red-600 transition hover:underline"
+      >
         Course Drop Requests
       </a>
-      <a href="/navbar/open-request" class="text-lg sm:text-xl font-semibold text-white px-4 py-2 rounded bg-red-500 hover:bg-red-600 transition hover:underline">
+      <a
+        href="/navbar/open-request"
+        class="text-lg sm:text-xl font-semibold text-white px-4 py-2 rounded bg-red-500 hover:bg-red-600 transition hover:underline"
+      >
         Course Open Requests
       </a>
-      <a href="/navbar/add-drop-request" class="text-lg sm:text-xl font-semibold text-white px-4 py-2 rounded bg-red-500 hover:bg-red-600 transition hover:underline">
+      <a
+        href="/navbar/add-drop-request"
+        class="text-lg sm:text-xl font-semibold text-white px-4 py-2 rounded bg-red-500 hover:bg-red-600 transition hover:underline"
+      >
         General Course Add/Drop
       </a>
     </div>
@@ -54,13 +65,27 @@
               </span>
             </td>
             <td class="px-4 py-2 whitespace-nowrap text-sm flex gap-2">
-              <a href="#" class="text-blue-600 hover:text-blue-800 transition material-icons hover:underline">edit</a>
-              <a href="#" class="text-red-600 hover:text-red-800 transition material-icons hover:underline">delete</a>
+              <!-- <a
+                [routerLink]="['/navbar/add-course', request.id]"
+                class="text-blue-600 hover:text-blue-800 transition material-icons hover:underline cursor-pointer"
+              >
+                edit
+              </a> -->
+
+              <a
+                href="/navbar/add-course"
+                class="text-blue-600 hover:text-blue-800 transition material-icons hover:underline cursor-pointer"
+                >edit</a
+              >
+              <a
+                (click)="deleteRequest(1)"
+                class="text-red-600 hover:text-red-800 transition material-icons hover:underline cursor-pointer"
+                >delete</a
+              >
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </div>
 </div>

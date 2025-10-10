@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, style, transition } from '@angular/animations';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -26,6 +27,8 @@ export class Navbar {
   isRequestDropdownOpen = false;
   chatMessage = '';
 
+  constructor(private router: Router) {}
+  
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
@@ -44,5 +47,23 @@ export class Navbar {
 
   closeChatBox() {
     this.isChatOpen = false;
+  }
+
+  logout(): void {
+    // 🧹 Clear user session or token
+    localStorage.removeItem('token');   // or sessionStorage.removeItem('token')
+    localStorage.removeItem('user');    // optional, if you store user info
+
+    // 🔐 Optionally show a message
+    Swal.fire({
+      title: 'Logged Out',
+      text: 'You have been successfully logged out.',
+      icon: 'info',
+      showConfirmButton: false,
+      timer: 2000
+    });
+
+    // 🔄 Redirect to login or home page
+    this.router.navigate(['/']);
   }
 }

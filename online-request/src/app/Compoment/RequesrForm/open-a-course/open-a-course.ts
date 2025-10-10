@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 interface Student {
   name: string;
@@ -79,7 +80,14 @@ currentDate: string = new Date().toLocaleDateString('th-TH', {
 
   onSubmit() {
     console.log('Form Data:', this.data);
-    alert('ส่งคำร้องเรียบร้อยแล้ว!');
+    
+    Swal.fire({
+      title: 'ส่งคำร้องสำเร็จ',
+      text: 'คำร้องของคุณถูกส่งเรียบร้อยแล้ว',
+      icon: 'success',
+      confirmButtonText: 'ตกลง'
+    });
+
     // ที่นี่สามารถส่งไป backend ผ่าน HTTP POST
   }
 }

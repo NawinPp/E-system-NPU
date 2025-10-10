@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-setting',
@@ -46,6 +47,13 @@ export class Setting {
   update() {
     this.student = { ...this.editData };
     if (this.selectedPhoto) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Profile Updated',
+        text: 'Your profile has been updated successfully!',
+        timer: 2000,
+        showConfirmButton: false
+      });
       this.student.photo = this.selectedPhoto;
     }
     this.closeEditModal();

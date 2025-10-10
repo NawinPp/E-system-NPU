@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import html2pdf from 'html2pdf.js';
+import Swal from 'sweetalert2';
 
 interface Course {
   course_code: string;
@@ -116,7 +117,12 @@ export class DropACourse implements OnInit {
     // this.http.post('/api/course-request', { formData: this.formData, courses: this.rows })
     //   .subscribe(response => console.log(response));
     
-    alert('ส่งคำร้องเรียบร้อยแล้ว!');
+    Swal.fire({
+      icon: 'success',
+      title: 'ส่งคำร้องสำเร็จ',
+      text: 'คำร้องของคุณถูกส่งเรียบร้อยแล้ว',
+      confirmButtonText: 'ตกลง'
+    });
   }
 
   
